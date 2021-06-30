@@ -5,12 +5,13 @@ const enum Status {
   RESIZE = 1,
   MOVE = 2
 }
+
 @Component({
-  selector: 'app-resizable-draggable',
-  templateUrl: './resizable-draggable.component.html',
-  styleUrls: ['./resizable-draggable.component.scss']
+  selector: 'app-resizable-label',
+  templateUrl: './resizable-label.component.html',
+  styleUrls: ['./resizable-label.component.scss']
 })
-export class ResizableDraggableComponent implements OnInit, AfterViewInit {
+export class ResizableLabelComponent implements OnInit, AfterViewInit {
   @Input('width') public width: number;
   @Input('height') public height: number;
   @Input('left') public left: number;
@@ -42,9 +43,21 @@ export class ResizableDraggableComponent implements OnInit, AfterViewInit {
     this.containerPos = { left, top, right, bottom };
   }
 
+  private pauseEvent(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+    e.cancelBubble = true;
+    e.returnValue = false;
+    return false;
+  }
+
   setStatus(event: MouseEvent, status: number) {
     if (status === 1) event.stopPropagation();
-    else if (status === 2) this.mouseClick = { x: event.clientX, y: event.clientY, left: this.left, top: this.top };
+    else if (status === 2) {
+      this.mouseClick = { x: event.clientX, y: event.clientY, left: this.left, top: this.top };
+      this.status = status;
+      return this.pauseEvent(event);
+    }
     else this.loadBox();
     this.status = status;
   }
@@ -90,3 +103,6 @@ export class ResizableDraggableComponent implements OnInit, AfterViewInit {
     );
   }
 }
+
+
+

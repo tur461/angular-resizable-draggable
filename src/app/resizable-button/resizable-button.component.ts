@@ -5,12 +5,13 @@ const enum Status {
   RESIZE = 1,
   MOVE = 2
 }
+
 @Component({
-  selector: 'app-resizable-draggable',
-  templateUrl: './resizable-draggable.component.html',
-  styleUrls: ['./resizable-draggable.component.scss']
+  selector: 'app-resizable-button',
+  templateUrl: './resizable-button.component.html',
+  styleUrls: ['./resizable-button.component.scss']
 })
-export class ResizableDraggableComponent implements OnInit, AfterViewInit {
+export class ResizableButtonComponent implements OnInit, AfterViewInit {
   @Input('width') public width: number;
   @Input('height') public height: number;
   @Input('left') public left: number;
@@ -90,3 +91,4 @@ export class ResizableDraggableComponent implements OnInit, AfterViewInit {
     );
   }
 }
+
